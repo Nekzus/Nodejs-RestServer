@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { validarCampos } from "../middlewares/validar-campos.js";
+import {
+  validarCampos,
+  validarJWT,
+  esAdminRole,
+  tieneRole,
+} from "../middlewares/index.js";
 import {
   emailExiste,
   esRolValido,
@@ -14,10 +19,10 @@ import {
   usuariosPut,
 } from "../controllers/usuarios.js";
 
-const router = Router();
+const routerUser = Router();
 
-router.get("/", usuariosGet);
-router.put(
+routerUser.get("/", usuariosGet);
+routerUser.put(
   "/:id",
   [
     check("id").custom(existeUsuarioPorId),
@@ -26,7 +31,7 @@ router.put(
   ],
   usuariosPut
 );
-router.post(
+routerUser.post(
   "/",
   [
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
@@ -42,11 +47,17 @@ router.post(
 
   usuariosPost
 );
-router.patch("/", usuariosPatch);
-router.delete(
+routerUser.patch("/", usuariosPatch);
+routerUser.delete(
   "/:id",
-  [check("id").custom(existeUsuarioPorId), validarCampos],
+  [
+    validarJWT,
+    tieneRole("ADMIN_ROLE", "VENTAS_ROLE"),
+    // esAdminRole,
+    check("id").custom(existeUsuarioPorId),
+    validarCampos,
+  ],
   usuariosDelete
 );
 
-export default router;
+export default routerUser;
