@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-import Role from "../models/role.js";
-import Usuario from "../models/usuario.js";
+import { Categoria, Role, Usuario } from "../models/index.js";
 
 const esRolValido = async (rol = "") => {
   const existeRol = await Role.findOne({ rol });
@@ -27,4 +26,15 @@ const existeUsuarioPorId = async (id) => {
   }
 };
 
-export { esRolValido, emailExiste, existeUsuarioPorId };
+const existeCategoriaPorId = async (id) => {
+  if (mongoose.Types.ObjectId.isValid(id)) {
+    const existId = await Categoria.findById(id);
+    if (!existId) {
+      throw new Error(`La categoria ${id} no existe en la BD`);
+    }
+  } else {
+    throw new Error(`El id ${id}, no es un id de Mongo válido`);
+  }
+};
+
+export { esRolValido, emailExiste, existeUsuarioPorId, existeCategoriaPorId };
