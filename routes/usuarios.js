@@ -17,7 +17,7 @@ import {
   usuariosPatch,
   usuariosPost,
   usuariosPut,
-} from "../controllers/usuarios.js";
+} from "../controllers/index.js";
 
 const routerUser = Router();
 
@@ -52,12 +52,11 @@ routerUser.delete(
   "/:id",
   [
     validarJWT,
-    tieneRole("ADMIN_ROLE", "VENTAS_ROLE"),
-    // esAdminRole,
+    esAdminRole,
     check("id").custom(existeUsuarioPorId),
     validarCampos,
   ],
   usuariosDelete
 );
 
-export default routerUser;
+export { routerUser };

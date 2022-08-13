@@ -6,7 +6,7 @@ import {
   crearCategoria,
   obtenerCategoria,
   obtenerCategorias,
-} from "../controllers/categorias.js";
+} from "../controllers/index.js";
 import { existeCategoriaPorId } from "../helpers/db-validators.js";
 import {
   esAdminRole,
@@ -63,4 +63,4 @@ routerCat.delete(
   borrarCategoria
 );
 
-export default routerCat;
+export { routerCat };

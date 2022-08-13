@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { googleSignIn, login } from "../controllers/auth.js";
+import { googleSignIn, login } from "../controllers/index.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 
 const routerAuth = Router();
@@ -21,4 +21,4 @@ routerAuth.post(
   googleSignIn
 );
 
-export default routerAuth;
+export { routerAuth };
