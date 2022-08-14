@@ -1,7 +1,6 @@
-import { routerAuth } from "./auth.js";
-import { routerBus } from "./buscar.js";
-import { routerCat } from "./categorias.js";
-import { routerProd } from "./productos.js";
-import { routerUser } from "./usuarios.js";
-
-export { routerAuth, routerBus, routerCat, routerProd, routerUser };
+export * from "./auth.js";
+export * from "./buscar.js";
+export * from "./categorias.js";
+export * from "./productos.js";
+export * from "./uploads.js";
+export * from "./usuarios.js";

@@ -1,6 +1,6 @@
 import { request, response } from "express";
 import mongoose from "mongoose";
-import { Usuario, Categoria, Producto, Role } from "../models/index.js";
+import { Usuario, Categoria, Producto } from "../models/index.js";
 const { ObjectId } = mongoose.Types;
 
 const coleccionesPermitidas = ["usuarios", "productos", "categorias", "roles"];

@@ -10,7 +10,7 @@ import {
   emailExiste,
   esRolValido,
   existeUsuarioPorId,
-} from "../helpers/db-validators.js";
+} from "../helpers/index.js";
 import {
   usuariosDelete,
   usuariosGet,

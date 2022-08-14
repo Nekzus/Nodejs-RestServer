@@ -48,10 +48,32 @@ const existeProductoPorId = async (id) => {
   }
 };
 
+const existeArchivoPorId = async (id) => {
+  const validId = mongoose.Types.ObjectId.isValid(id);
+  if (!validId) {
+    throw new Error(`El id ${id}, no es un id de Mongo válido`);
+  } else {
+    return true;
+  }
+};
+
+const coleccionesPermitidas = (coleccion = "", colecciones = []) => {
+  const incluida = colecciones.includes(coleccion);
+  if (!incluida) {
+    throw new Error(
+      `La colección ${coleccion} no es permitida - ${colecciones}`
+    );
+  } else {
+    return true;
+  }
+};
+
 export {
-  esRolValido,
+  coleccionesPermitidas,
   emailExiste,
-  existeUsuarioPorId,
+  esRolValido,
+  existeArchivoPorId,
   existeCategoriaPorId,
   existeProductoPorId,
+  existeUsuarioPorId,
 };

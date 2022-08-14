@@ -1,13 +1,14 @@
 import express from "express";
 import cors from "cors";
+import fileUpload from "express-fileupload";
 import {
   routerAuth,
   routerBus,
   routerCat,
   routerProd,
+  routerUp,
   routerUser,
 } from "../routes/index.js";
-
 import { dbConnection } from "../database/config.js";
 
 class Server {
@@ -20,6 +21,7 @@ class Server {
       buscar: "/api/buscar",
       categorias: "/api/categorias",
       productos: "/api/productos",
+      uploads: "/api/uploads",
       usuarios: "/api/usuarios",
     };
 
@@ -45,6 +47,15 @@ class Server {
 
     // Directorio publico
     this.app.use(express.static("public"));
+
+    // Fileupload - Carga de archivos
+    this.app.use(
+      fileUpload({
+        useTempFiles: true,
+        tempFileDir: "/tmp/",
+        createParentPath: true,
+      })
+    );
   }
 
   routes() {
@@ -52,6 +63,7 @@ class Server {
     this.app.use(this.paths.buscar, routerBus);
     this.app.use(this.paths.categorias, routerCat);
     this.app.use(this.paths.productos, routerProd);
+    this.app.use(this.paths.uploads, routerUp);
     this.app.use(this.paths.usuarios, routerUser);
   }
 

@@ -7,7 +7,7 @@ import {
   obtenerCategoria,
   obtenerCategorias,
 } from "../controllers/index.js";
-import { existeCategoriaPorId } from "../helpers/db-validators.js";
+import { existeCategoriaPorId } from "../helpers/index.js";
 import {
   esAdminRole,
   tieneRole,

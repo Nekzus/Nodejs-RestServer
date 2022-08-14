@@ -7,10 +7,7 @@ import {
   obtenerProducto,
   obtenerProductos,
 } from "../controllers/index.js";
-import {
-  existeCategoriaPorId,
-  existeProductoPorId,
-} from "../helpers/db-validators.js";
+import { existeCategoriaPorId, existeProductoPorId } from "../helpers/index.js";
 import {
   esAdminRole,
   tieneRole,
