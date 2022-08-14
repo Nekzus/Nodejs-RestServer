@@ -1,6 +1,10 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { actualizarImagen, cargarArchivo } from "../controllers/index.js";
+import {
+  actualizarImagenCloudinary,
+  cargarArchivo,
+  mostrarImagen,
+} from "../controllers/index.js";
 import { coleccionesPermitidas, existeArchivoPorId } from "../helpers/index.js";
 import { validarArchivoSubir, validarCampos } from "../middlewares/index.js";
 
@@ -18,7 +22,19 @@ routerUp.put(
     ),
     validarCampos,
   ],
-  actualizarImagen
+  actualizarImagenCloudinary
+);
+
+routerUp.get(
+  "/:coleccion/:id",
+  [
+    check("id", "El id es obligatorio").custom(existeArchivoPorId),
+    check("coleccion").custom((c) =>
+      coleccionesPermitidas(c, ["usuarios", "productos"])
+    ),
+    validarCampos,
+  ],
+  mostrarImagen
 );
 
 export { routerUp };
