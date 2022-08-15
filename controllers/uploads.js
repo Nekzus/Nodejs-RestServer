@@ -66,8 +66,6 @@ const mostrarImagen = async (req = request, res = response) => {
   const { id, coleccion } = req.params;
   let modelo;
 
-  const pathPlaceholder = path.join(__dirname, "../assets/no-image.jpg");
-
   switch (coleccion) {
     case "usuarios":
       modelo = await Usuario.findById(id);
@@ -93,17 +91,10 @@ const mostrarImagen = async (req = request, res = response) => {
 
   // Limpiar imagenes previas
   if (modelo.img) {
-    const pathImagen = path.join(
-      __dirname,
-      "../uploads/",
-      coleccion,
-      modelo.img
-    );
-    if (fs.existsSync(pathImagen)) {
-      return res.sendFile(pathImagen);
-    }
+    return res.redirect(modelo.img);
   }
 
+  const pathPlaceholder = path.join(__dirname, "../assets/no-image.jpg");
   return res.sendFile(pathPlaceholder);
 };
 
