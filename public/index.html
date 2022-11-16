@@ -50,7 +50,6 @@
         )
           .then((resp) => resp.json())
           .then((resp) => {
-            console.log("resp", resp);
             localStorage.setItem("email", resp.usuario.email);
           })
           .catch(console.warn);
