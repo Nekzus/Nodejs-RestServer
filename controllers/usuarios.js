@@ -1,6 +1,8 @@
 import { request, response } from "express";
-import bcryptjs from "bcryptjs";
+
 import { Usuario } from "../models/index.js";
+import bcryptjs from "bcryptjs";
+import { generarJWT } from "../helpers/generar-jwt.js";
 
 const usuariosGet = async (req = request, res = response) => {
   const { limite = 5, desde = 0 } = req.query;
@@ -40,8 +42,12 @@ const usuariosPost = async (req, res = response) => {
   usuario.password = bcryptjs.hashSync(password, salt);
   // Guardar el usuario
   await usuario.save();
+  // Generar el JWT
+  const token = await generarJWT(usuario.id);
+
   res.json({
     usuario,
+    token,
   });
 };
 
