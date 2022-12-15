@@ -2,7 +2,7 @@ import { Categoria, Producto, Role, Usuario } from "../models/index.js";
 
 import mongoose from "mongoose";
 
-const esRolValido = async (rol = "") => {
+const esRolValido = async (rol = "USER_ROLE") => {
   const existeRol = await Role.findOne({ rol });
   if (!existeRol) {
     throw new Error(`El rol ${rol} no existe en la BD`);
