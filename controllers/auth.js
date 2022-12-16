@@ -1,7 +1,8 @@
-import { request, response } from "express";
-import bcryptjs from "bcryptjs";
-import { Usuario } from "../models/index.js";
 import { generarJWT, googleVerify } from "../helpers/index.js";
+import { request, response } from "express";
+
+import { Usuario } from "../models/index.js";
+import bcryptjs from "bcryptjs";
 
 const login = async (req, res = response) => {
   const { email, password } = req.body;
@@ -85,4 +86,16 @@ const googleSignIn = async (req = request, res = response) => {
   }
 };
 
-export { login, googleSignIn };
+const validarTokenUsuario = async (req = request, res = response) => {
+  const { email } = req.body;
+  const usuario = await Usuario.findOne({ email });
+  // Generar el JWT
+  const token = await generarJWT(usuario);
+
+  res.json({
+    usuario: req.usuario,
+    token: token,
+  });
+};
+
+export { login, googleSignIn, validarTokenUsuario };
